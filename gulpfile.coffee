@@ -20,7 +20,7 @@ gulp.task 'clean', ->
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
         version: '0.12.2'
-        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
+        # winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
         macIcns: './assets-osx/icon.icns'
         macZip: true
         macPlist:
@@ -40,7 +40,7 @@ gulp.task 'clean', ->
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
         version: '0.12.2'
-        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
+        # winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
         macIcns: './assets-osx/icon.icns'
         macZip: true
         macPlist:
@@ -69,6 +69,7 @@ gulp.task 'pack:osx64', ['sign:osx64'], ->
 
 # Create a nsis installer for win32; must have `makensis` installed
 gulp.task 'pack:win32', ['build:win32'], ->
+   shelljs.mkdir '-p', './dist'            # makensis fails if ./dist doesn't exist
    shelljs.exec 'makensis ./assets-windows/installer.nsi'
 
 # Create packages for linux
